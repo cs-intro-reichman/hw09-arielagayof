@@ -137,7 +137,7 @@ public class List {
             prev.next = cur.next; //one behind points one ahead
         }
         size --; //updates the lists size
-        return;
+        return true;
     }
 
     /** Returns the CharData object at the specified index in this list.
