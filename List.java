@@ -1,8 +1,3 @@
-/** A linked list of character data objects.
- *  (Actually, a list of Node objects, each holding a reference to a character data object.
- *  However, users of this class are not aware of the Node objects. As far as they are concerned,
- *  the class represents a list of CharData objects. Likwise, the API of the class does not
- *  mention the existence of the Node objects). */
 public class List {
 
     // Points to the first node in this list
@@ -10,85 +5,189 @@ public class List {
 
     // The number of elements in this list
     private int size;
-	
+
     /** Constructs an empty list. */
     public List() {
-        first = null;
+        first = null ;
         size = 0;
+    }
+    public static void main(String[] args) {
+        List l = new List();
+        l.update('_');
+        l.update('e');
+        l.update('e');
+        l.update('t');
+        l.update('t');
+        l.update('i');
+        l.update('m');
+        l.update('m');
+        l.update('o');
+        l.update('c');
+        System.out.println(l);
+
+
     }
 
     /** Returns the number of elements in this list. */
     public int getSize() {
- 	      return size;
+        return size ;
+    }
+
+    public Node getFirstNode()
+    {
+        return first;
     }
 
     /** Returns the first element in the list */
-    public CharData getFirst() {
+    public CharData getFirst()  {
         return first.cp;
     }
 
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
-        // Your code goes here
+        CharData newCharData = new CharData(chr);
+        Node newnode = new Node(newCharData, this.first);
+        this.first = newnode;
+        size++ ;
     }
-    
+
     /** GIVE Textual representation of this list. */
     public String toString() {
-        // Your code goes here
+        if (size == 0)
+        {
+            return "()" ;
+        }
+
+        StringBuilder str = new StringBuilder("(");
+        Node cur = first ;
+        while (cur != null)
+        {
+            str.append(cur.cp.toString()).append(" ");
+            cur = cur.next;
+        }
+        //removes the trailing space and adds the ')'
+        str.deleteCharAt(str.length() - 1).append(")");
+        return str.toString();
     }
 
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
     public int indexOf(char chr) {
-        // Your code goes here
+        Node cur = first;
+        int index = 0;
+        while (cur != null)
+        {
+            if (cur.cp.chr == chr)
+            {
+                return index;
+            }
+            cur = cur.next;
+            index ++;
+        }
+        return -1; //value not found
+
     }
 
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-        // Your code goes here
+        int index = indexOf(chr);
+        if (index != -1) //we managed to find the char
+        {
+            Node current = first;
+            while (current != null)
+             {
+                if (current.cp.chr == chr)
+                {
+                    current.cp.count++;//increments the counter
+                }
+                current = current.next;
+            }
+        }
+        else
+        {
+            addFirst(chr) ;
+        }
     }
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
     public boolean remove(char chr) {
-        // Your code goes here
+        //finds the node to renmove using to poninters, prev is one step behind
+        Node prev = null;
+        Node cur = first;
+        while (cur != null && cur.cp.chr != chr)
+        {
+            prev = cur;
+            cur = cur.next;
+        }
+        if (cur == null)
+        {
+            return false;
+        }
+        if (prev == null) //its the first element
+        {
+            first = first.next;
+        }
+        else
+        {
+            prev.next = cur.next; //one behind points one ahead
+        }
+        size --; //updates the lists size
+        return;
     }
 
-    /** Returns the CharData object at the specified index in this list. 
-     *  If the index is negative or is greater than the size of this list, 
+    /** Returns the CharData object at the specified index in this list.
+     *  If the index is negative or is greater than the size of this list,
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
-        // Your code goes here
+        if (index < 0 || index >= size)
+        {
+            throw new IndexOutOfBoundsException("Index is out of bounds: " + index);
+        }
+        int i = 0;
+        Node cur = first;
+        while (cur != null)
+        {
+            if (i == index)
+            {
+                return cur.cp;
+            }
+            cur = cur.next;
+            i ++;
+        }
+        return null; //if somehow there wasnt an index out of bounds exception or a Chardata return
     }
 
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
     public CharData[] toArray() {
-	    CharData[] arr = new CharData[size];
-	    Node current = first;
-	    int i = 0;
-        while (current != null) {
-    	    arr[i++]  = current.cp;
-    	    current = current.next;
+        CharData[] arr = new CharData[size];
+        Node cur = first;
+        int i = 0;
+        while (cur != null) {
+            arr[i++]  = cur.cp;
+            cur = cur.next;
         }
         return arr;
     }
 
     /** Returns an iterator over the elements in this list, starting at the given index. */
     public ListIterator listIterator(int index) {
-	    // If the list is empty, there is nothing to iterate   
-	    if (size == 0) return null;
-	    // Gets the element in position index of this list
-	    Node current = first;
-	    int i = 0;
+        // If the list is empty, there is nothing to iterate
+        if (size == 0) return null;
+        // Gets the element in position index of this list
+        Node current = first ;
+        int i = 0;
         while (i < index) {
-            current = current.next;
-            i++;
+            current = current.next ;
+            i++ ;
+            
         }
+
         // Returns an iterator that starts in that element
-	    return new ListIterator(current);
+        return new ListIterator(current);
     }
 }
