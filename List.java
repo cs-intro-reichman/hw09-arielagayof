@@ -185,7 +185,8 @@ public class List {
             current = current.next ;
             i++ ;
             
-        }current
+        }
+        current;
 
         // Returns an iterator that starts in that element
         return new ListIterator(current);
