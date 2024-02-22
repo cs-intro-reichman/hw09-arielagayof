@@ -186,7 +186,6 @@ public class List {
             i++ ;
             
         }
-        current;
 
         // Returns an iterator that starts in that element
         return new ListIterator(current);
