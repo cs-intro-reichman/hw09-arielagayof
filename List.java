@@ -48,7 +48,7 @@ public class List {
         CharData newCharData = new CharData(chr);
         Node newnode = new Node(newCharData, this.first);
         this.first = newnode;
-        size++ ;
+        size++;
     }
 
     /** GIVE Textual representation of this list. */
@@ -59,11 +59,11 @@ public class List {
         }
 
         StringBuilder str = new StringBuilder("(");
-        Node cur = first ;
-        while (cur != null)
+        Node current = first ;
+        while (current != null)
         {
             str.append(cur.cp.toString()).append(" ");
-            cur = cur.next;
+            current = current.next;
         }
         //removes the trailing space and adds the ')'
         str.deleteCharAt(str.length() - 1).append(")");
@@ -74,15 +74,15 @@ public class List {
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
     public int indexOf(char chr) {
-        Node cur = first;
+        Node current = first;
         int index = 0;
-        while (cur != null)
+        while (current != null)
         {
-            if (cur.cp.chr == chr)
+            if (current.cp.chr == chr)
             {
                 return index;
             }
-            cur = cur.next;
+            current = current.next;
             index ++;
         }
         return -1; //value not found
@@ -118,13 +118,13 @@ public class List {
     public boolean remove(char chr) {
         //finds the node to renmove using to poninters, prev is one step behind
         Node prev = null;
-        Node cur = first;
-        while (cur != null && cur.cp.chr != chr)
+        Node current = first;
+        while (current != null && current.cp.chr != chr)
         {
-            prev = cur;
-            cur = cur.next;
+            prev = current;
+            current = current.next;
         }
-        if (cur == null)
+        if (current == null)
         {
             return false;
         }
@@ -134,7 +134,7 @@ public class List {
         }
         else
         {
-            prev.next = cur.next; //one behind points one ahead
+            prev.next = current.next; //one behind points one ahead
         }
         size --; //updates the lists size
         return true;
@@ -149,14 +149,14 @@ public class List {
             throw new IndexOutOfBoundsException("Index is out of bounds: " + index);
         }
         int i = 0;
-        Node cur = first;
-        while (cur != null)
+        Node current = first;
+        while (current != null)
         {
             if (i == index)
             {
-                return cur.cp;
+                return current.cp;
             }
-            cur = cur.next;
+            current = current.next;
             i ++;
         }
         return null; //if somehow there wasnt an index out of bounds exception or a Chardata return
@@ -165,11 +165,11 @@ public class List {
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
     public CharData[] toArray() {
         CharData[] arr = new CharData[size];
-        Node cur = first;
+        Node current = first;
         int i = 0;
-        while (cur != null) {
-            arr[i++]  = cur.cp;
-            cur = cur.next;
+        while (current != null) {
+            arr[i++]  = current.cp;
+            current = current.next;
         }
         return arr;
     }
@@ -185,7 +185,7 @@ public class List {
             current = current.next ;
             i++ ;
             
-        }
+        }current
 
         // Returns an iterator that starts in that element
         return new ListIterator(current);
