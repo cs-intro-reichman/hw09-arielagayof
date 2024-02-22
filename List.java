@@ -39,16 +39,20 @@ public class List {
     }
 
     /** Returns the first element in the list */
-    public CharData getFirst()  {
+     public CharData getFirst() {
         return first.cp;
     }
 
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
         CharData newCharData = new CharData(chr);
-        Node newnode = new Node(newCharData, this.first);
-        this.first = newnode;
+        // Create a new Node with the newly created CharData object
+        Node newNode = new Node(newCharData, this.first);
+        // Update the first node to the newly created node
+        this.first = newNode;
+        // Increment the size of the list
         size++;
+        
     }
 
     /** GIVE Textual representation of this list. */
