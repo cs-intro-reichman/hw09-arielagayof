@@ -62,7 +62,7 @@ public class List {
         Node current = first ;
         while (current != null)
         {
-            str.append(cur.cp.toString()).append(" ");
+            str.append(current.cp.toString()).append(" ");
             current = current.next;
         }
         //removes the trailing space and adds the ')'
